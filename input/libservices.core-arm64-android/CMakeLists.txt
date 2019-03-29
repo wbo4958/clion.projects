@@ -219,7 +219,7 @@ list(APPEND
 # Raw param [0] = '-march=armv8-a'
 # Raw param [1] = ''
 include_directories(
-    "${ANDROID_ROOT}/frameworks/base/libs -Iframeworks/native/services -Isystem/gatekeeper/include"
+    "${ANDROID_ROOT}/frameworks/base/libs"
     "${ANDROID_ROOT}/frameworks/base/services/core/jni"
     "${ANDROID_ROOT}/hardware/interfaces/broadcastradio/common/utils1x/include"
     "${ANDROID_ROOT}/external/scrypt/lib/crypto"
@@ -295,7 +295,8 @@ include_directories(
     "${ANDROID_ROOT}/frameworks/native/libs/math/include"
     "${ANDROID_ROOT}/out/soong/.intermediates/hardware/interfaces/graphics/common/1.0/android.hardware.graphics.common@1.0_genc++_headers/gen"
     "${ANDROID_ROOT}/out/soong/.intermediates/hardware/interfaces/graphics/common/1.1/android.hardware.graphics.common@1.1_genc++_headers/gen"
-    "${ANDROID_ROOT}/frameworks/native/services/inputflinger"
+        "${ANDROID_ROOT}/frameworks/native/services/"
+        "${ANDROID_ROOT}/frameworks/native/services/inputflinger"
     "${ANDROID_ROOT}/frameworks/native/services/schedulerservice/include"
     "${ANDROID_ROOT}/frameworks/native/libs/sensor/include"
     "${ANDROID_ROOT}/frameworks/native/services/sensorservice/hidl/include"
@@ -336,7 +337,7 @@ include_directories(
 )
 
 file (GLOB_RECURSE TMP_HEADERS
-    "${ANDROID_ROOT}/frameworks/base/libs -Iframeworks/native/services -Isystem/gatekeeper/include/**/*.h"
+    "${ANDROID_ROOT}/frameworks/base/libs/input/*.h"
     "${ANDROID_ROOT}/frameworks/base/services/core/jni/**/*.h"
     "${ANDROID_ROOT}/hardware/interfaces/broadcastradio/common/utils1x/include/**/*.h"
     "${ANDROID_ROOT}/external/scrypt/lib/crypto/**/*.h"
@@ -412,7 +413,7 @@ file (GLOB_RECURSE TMP_HEADERS
     "${ANDROID_ROOT}/frameworks/native/libs/math/include/**/*.h"
     "${ANDROID_ROOT}/out/soong/.intermediates/hardware/interfaces/graphics/common/1.0/android.hardware.graphics.common@1.0_genc++_headers/gen/**/*.h"
     "${ANDROID_ROOT}/out/soong/.intermediates/hardware/interfaces/graphics/common/1.1/android.hardware.graphics.common@1.1_genc++_headers/gen/**/*.h"
-    "${ANDROID_ROOT}/frameworks/native/services/inputflinger/**/*.h"
+    "${ANDROID_ROOT}/frameworks/native/services/inputflinger/*.h"
     "${ANDROID_ROOT}/frameworks/native/services/schedulerservice/include/**/*.h"
     "${ANDROID_ROOT}/frameworks/native/libs/sensor/include/**/*.h"
     "${ANDROID_ROOT}/frameworks/native/services/sensorservice/hidl/include/**/*.h"
