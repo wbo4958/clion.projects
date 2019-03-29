@@ -1,14 +1,13 @@
 #! /bin/bash
 
-cmake_file=$1
+CUR_DIR=`pwd`
+SOURCE_DIR=`dirname $CUR_DIR`
+project_dir=$1
 
-
-if [ "X$cmake_file" == "X" ]; then
-    echo "input CMakeLists.txt"
+if [ "X$project_dir" == "X" -o ! -d "$project_dir" ]; then
+    echo "specifiy project"
     exit
 fi
-
-echo $cmake_file
 
 delete_keywords="
 -target
@@ -26,26 +25,16 @@ set(CMAKE_CXX_COMPILER
 -ftrap-function=abort
 "
 
-for keyword in $delete_keywords; do
-    sed -i -e "/${keyword}/d" $cmake_file
+function fix_cmake_file(){
+    local cmake_file=$1
+    for keyword in $delete_keywords; do
+        sed -i -e "/${keyword}/d" $cmake_file
+    done
+    sed -i -e "s~.*set(ANDROID_ROOT.*~set(ANDROID_ROOT ${SOURCE_DIR})~g" $cmake_file
+}
+
+cmake_files=`find $project_dir -mindepth 2 -type d '(' -name cmake-build-debug -o -name .idea ')' -prune -o -name "CMakeLists.txt" -print`
+
+for cmake_file in $cmake_files; do
+    fix_cmake_file $cmake_file
 done
-
-sed -i -e 's/.*set(ANDROID_ROOT.*/set(ANDROID_ROOT \/home\/bobwang\/remote\/0.apt.sh01\/work.d\/rel.32)/g' $cmake_file
-
-#sed -i -e '/fcolor-diagnostics/d' $cmake_file
-#sed -i -e '/nostdlibinc/d' $cmake_file
-#sed -i -e '/ftrap-function/d' $cmake_file
-#sed -i -e '/-target/d' $cmake_file
-#sed -i -e '/-fsanitize=/d' $cmake_file
-#sed -i -e '/-march=/d' $cmake_file
-#sed -i -e '/-fno-sanitize-trap/d' $cmake_file
-#sed -i -e '/-fsanitize-trap/d' $cmake_file
-#sed -i -e '/-fsanitize-blacklist/d' $cmake_file
-#sed -i -e '/-fsanitize-cfi-cross-dso/d' $cmake_file
-#sed -i -e '/-Wextra-semi/d' $cmake_file
-#sed -i -e '/set(CMAKE_C_COMPILER/d' $cmake_file
-#sed -i -e '/set(CMAKE_CXX_COMPILER/d' $cmake_file
-
-
-
-
